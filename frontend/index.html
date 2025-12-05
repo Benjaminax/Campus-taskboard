@@ -6,10 +6,10 @@
     <title>Campus Task Collaboration Board</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-    <body style="background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%); min-height: 100vh;">
+    <body style="background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%); min-height: 100vh;">
     <div id="auth-container" class="container" style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
         <div id="login-page" class="page active">
-            <div class="auth-card" style="box-shadow: 0 8px 32px rgba(0,217,255,0.15); border-radius: 16px; background: #0a0a0a; padding: 2rem;">
+            <div class="auth-card" style="box-shadow: 0 8px 32px rgba(192,192,192,0.1); border-radius: 16px; background: #1a1a1a; padding: 2rem;">
                 <div class="auth-header" style="text-align: center;">
                     <h1>Campus Task Board</h1>
                     <p>Collaborate on Team Projects</p>
@@ -23,15 +23,15 @@
                         <label for="login-password">Password</label>
                         <input type="password" id="login-password" name="password" required placeholder="••••••••">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-full" style="background: linear-gradient(90deg, #00d9ff, #ffd700); color: #000; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,217,255,0.12); font-weight: 600;">Login</button>
-                    <p class="auth-switch" style="margin-top: 1rem;">Don't have an account? <a href="#" onclick="switchPage('register')" style="color: #00d9ff;">Register here</a></p>
+                    <button type="submit" class="btn btn-primary btn-full" style="background: linear-gradient(90deg, #e0e0e0, #c0c0c0); color: #0f0f0f; border-radius: 8px; box-shadow: 0 2px 8px rgba(192,192,192,0.1); font-weight: 600;">Login</button>
+                    <p class="auth-switch" style="margin-top: 1rem;">Don't have an account? <a href="#" onclick="switchPage('register')" style="color: #c0c0c0;">Register here</a></p>
                 </form>
-                <div id="login-error" class="alert alert-error" style="display: none; color: #ff6666; margin-top: 1rem;"></div>
+                <div id="login-error" class="alert alert-error" style="display: none; color: #c97575; margin-top: 1rem;"></div>
             </div>
         </div>
 
         <div id="register-page" class="page">
-            <div class="auth-card" style="box-shadow: 0 8px 32px rgba(0,217,255,0.15); border-radius: 16px; background: #0a0a0a; padding: 2rem;">
+            <div class="auth-card" style="box-shadow: 0 8px 32px rgba(192,192,192,0.1); border-radius: 16px; background: #1a1a1a; padding: 2rem;">
                 <div class="auth-header" style="text-align: center;">
                     <h1>Join Campus Task Board</h1>
                     <p>Create Your Account</p>
@@ -53,19 +53,19 @@
                         <label for="register-password-confirm">Confirm Password</label>
                         <input type="password" id="register-password-confirm" name="password-confirm" required placeholder="Re-enter your password">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-full" style="background: linear-gradient(90deg, #00d9ff, #ffd700); color: #000; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,217,255,0.12); font-weight: 600;">Create Account</button>
-                    <p class="auth-switch" style="margin-top: 1rem;">Already have an account? <a href="#" onclick="switchPage('login')" style="color: #00d9ff;">Login here</a></p>
+                    <button type="submit" class="btn btn-primary btn-full" style="background: linear-gradient(90deg, #e0e0e0, #c0c0c0); color: #0f0f0f; border-radius: 8px; box-shadow: 0 2px 8px rgba(192,192,192,0.1); font-weight: 600;">Create Account</button>
+                    <p class="auth-switch" style="margin-top: 1rem;">Already have an account? <a href="#" onclick="switchPage('login')" style="color: #c0c0c0;">Login here</a></p>
                 </form>
-                <div id="register-error" class="alert alert-error" style="display: none; color: #ff6666; margin-top: 1rem;"></div>
+                <div id="register-error" class="alert alert-error" style="display: none; color: #c97575; margin-top: 1rem;"></div>
             </div>
         </div>
     </div>
 
-    <div id="app-container" class="container" style="display: none; background: rgba(10,10,10,0.95); border-radius: 16px; box-shadow: 0 8px 32px rgba(0,217,255,0.10); margin: 2rem auto; max-width: 1400px;">
+    <div id="app-container" class="container" style="display: none; background: rgba(26,26,26,0.95); border-radius: 16px; box-shadow: 0 8px 32px rgba(192,192,192,0.08); margin: 2rem auto; max-width: 1400px;">
         <header class="header">
             <div class="header-content">
                 <div class="logo">
-                    <h1>📋 Campus Task Board</h1>
+                    <h1>Campus Task Board</h1>
                 </div>
                 <nav class="nav-menu">
                     <button class="nav-item" onclick="navigateTo('dashboard')">Dashboard</button>
@@ -85,7 +85,7 @@
                 <div class="dashboard-header">
                     <div class="header-content">
                         <div class="header-text">
-                            <h1>📊 Dashboard</h1>
+                            <h1>Dashboard</h1>
                             <p>Welcome back! Here's your project overview</p>
                         </div>
                         <button class="btn btn-primary" onclick="openCreateTeamModal()">+ New Team</button>
@@ -94,35 +94,35 @@
 
                 <section class="dashboard-stats">
                     <div class="stat-card stat-total">
-                        <div class="stat-icon-large">📋</div>
+                        <div class="stat-icon-large">■</div>
                         <div class="stat-content">
                             <div class="stat-value" id="total-tasks">0</div>
                             <div class="stat-label">Total Tasks</div>
                         </div>
                     </div>
                     <div class="stat-card stat-pending">
-                        <div class="stat-icon-large">⏳</div>
+                        <div class="stat-icon-large">◐</div>
                         <div class="stat-content">
                             <div class="stat-value" id="pending-tasks">0</div>
                             <div class="stat-label">Pending</div>
                         </div>
                     </div>
                     <div class="stat-card stat-inprogress">
-                        <div class="stat-icon-large">🔄</div>
+                        <div class="stat-icon-large">●</div>
                         <div class="stat-content">
                             <div class="stat-value" id="inprogress-tasks">0</div>
                             <div class="stat-label">In Progress</div>
                         </div>
                     </div>
                     <div class="stat-card stat-completed">
-                        <div class="stat-icon-large">✅</div>
+                        <div class="stat-icon-large">✓</div>
                         <div class="stat-content">
                             <div class="stat-value" id="completed-tasks">0</div>
                             <div class="stat-label">Completed</div>
                         </div>
                     </div>
                     <div class="stat-card stat-overdue">
-                        <div class="stat-icon-large">⚠️</div>
+                        <div class="stat-icon-large">!</div>
                         <div class="stat-content">
                             <div class="stat-value" id="overdue-tasks">0</div>
                             <div class="stat-label">Overdue</div>
@@ -133,7 +133,7 @@
                 <div class="dashboard-content">
                     <section class="dashboard-section">
                         <div class="section-header">
-                            <h2>👥 Your Teams</h2>
+                            <h2>Your Teams</h2>
                             <a href="#" onclick="navigateTo('teams'); return false;" class="view-all-link">View All →</a>
                         </div>
                         <div id="dashboard-teams" class="teams-grid"></div>
@@ -141,7 +141,7 @@
 
                     <section class="dashboard-section">
                         <div class="section-header">
-                            <h2>📝 Recent Tasks</h2>
+                            <h2>Recent Tasks</h2>
                             <a href="#" onclick="navigateTo('tasks'); return false;" class="view-all-link">View All →</a>
                         </div>
                         <div id="dashboard-tasks" class="recent-tasks-list"></div>
