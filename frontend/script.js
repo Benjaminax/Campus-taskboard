@@ -152,9 +152,6 @@ function logout() {
     showAuth();
     showToast('Logged out successfully', 'success');
 }
- ========================================
- UI NAVIGATION
- ========================================
 
 
 function showAuth() {
@@ -166,12 +163,12 @@ function showApp() {
     document.getElementById('auth-container').style.display = 'none';
     document.getElementById('app-container').style.display = 'block';
     document.getElementById('user-name').textContent = currentUser.name;
- Hide all auth pages (login/register) when showing app
+    // Hide all auth pages (login/register) when showing app
     document.querySelectorAll('#auth-container .page').forEach(page => {
         page.classList.remove('active');
         page.style.display = 'none';
     });
- Always show dashboard after login
+    // Always show dashboard after login
     currentPage = 'dashboard';
     navigateTo('dashboard');
 }
@@ -656,7 +653,6 @@ async function viewTeamDetails(teamId) {
         if (data.success) {
             const team = data.team;
             document.getElementById('team-details-name').textContent = escapeHtml(team.name);
- Render members
 
             const membersList = document.getElementById('team-members-list');
             membersList.innerHTML = (team.members || []).map(member => `
@@ -669,7 +665,7 @@ async function viewTeamDetails(teamId) {
                     <span class="member-role">${escapeHtml(member.role)}</span>
                 </div>
             `).join('');
- Render tasks
+
 
             const tasksList = document.getElementById('team-tasks-list');
             tasksList.innerHTML = (team.tasks || []).map(task => `
@@ -705,9 +701,6 @@ function switchTeamTab(tab) {
     event.target.classList.add('active');
     document.getElementById(`${tab}-tab`).classList.add('active');
 }
- ========================================
- TASKS MANAGEMENT
- ========================================
 
 
 async function loadTasks() {
