@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://campus-taskboard.onrender.com/api';
 const TOKEN_KEY = 'taskboard_token';
 const USER_KEY = 'taskboard_user';
 
