@@ -154,6 +154,7 @@ function showApp() {
     // Hide all auth pages (login/register) when showing app
     document.querySelectorAll('#auth-container .page').forEach(page => {
         page.classList.remove('active');
+        page.style.display = 'none';
     });
     // Always show dashboard after login
     currentPage = 'dashboard';
