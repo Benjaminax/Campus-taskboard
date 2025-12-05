@@ -13,7 +13,8 @@ const dashboardRoutes = require('./routes/dashboard');
 const { pool } = require('./config/database');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+// Ensure PORT is read correctly from environment
+const PORT = parseInt(process.env.PORT, 10) || 3001;
 
 // Security middleware
 app.use(helmet());
