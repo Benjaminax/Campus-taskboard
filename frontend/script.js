@@ -17,7 +17,22 @@ let taskStats = {
 document.addEventListener('DOMContentLoaded', () => {
     checkAuthStatus();
     setupEventListeners();
+    handleRouteChange();
 });
+
+window.addEventListener('hashchange', handleRouteChange);
+
+function handleRouteChange() {
+    const hash = window.location.hash.slice(1) || 'dashboard';
+    const [page, tab] = hash.split('/');
+    
+    if (currentUser) {
+        navigateTo(page);
+        if (tab) {
+            setTimeout(() => switchTeamTab(tab), 100);
+        }
+    }
+}
 
 function setupEventListeners() {
     document.getElementById('login-form')?.addEventListener('submit', handleLogin);
