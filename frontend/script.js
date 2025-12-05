@@ -220,9 +220,6 @@ function updateActiveNavItem() {
         navItems[pageMap[currentPage]]?.classList.add('active');
     }
 }
- ========================================
- DASHBOARD
- ========================================
 
 
 async function loadDashboard() {
