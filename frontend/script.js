@@ -163,12 +163,10 @@ function showApp() {
     document.getElementById('auth-container').style.display = 'none';
     document.getElementById('app-container').style.display = 'block';
     document.getElementById('user-name').textContent = currentUser.name;
-    // Hide all auth pages (login/register) when showing app
     document.querySelectorAll('#auth-container .page').forEach(page => {
         page.classList.remove('active');
         page.style.display = 'none';
     });
-    // Always show dashboard after login
     currentPage = 'dashboard';
     navigateTo('dashboard');
 }

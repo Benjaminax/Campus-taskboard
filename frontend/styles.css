@@ -217,20 +217,12 @@ a:hover {
     color: var(--text-secondary);
 }
 
-/* ========================================
-   MAIN CONTENT
-   ======================================== */
-
 .main-content {
     max-width: 1400px;
     margin: 0 auto;
     padding: var(--spacing-2xl) var(--spacing-xl);
     min-height: calc(100vh - 80px);
 }
-
-/* ========================================
-   BUTTONS
-   ======================================== */
 
 .btn {
     padding: 0.625rem 1rem;
@@ -292,10 +284,6 @@ a:hover {
     cursor: not-allowed;
 }
 
-/* ========================================
-   FORMS
-   ======================================== */
-
 .form,
 .auth-form {
     display: flex;
@@ -356,10 +344,6 @@ a:hover {
     margin-top: var(--spacing-lg);
 }
 
-/* ========================================
-   AUTHENTICATION PAGES
-   ======================================== */
-
 #auth-container {
     display: flex;
     align-items: center;
@@ -408,11 +392,6 @@ a:hover {
     color: #e0e0e0;
 }
 
-/* ========================================
-   DASHBOARD
-   ======================================== */
-
-/* Dashboard Header */
 .dashboard-header {
     background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 50%, #3a3a3a 100%);
     border-radius: var(--border-radius);
@@ -465,7 +444,6 @@ a:hover {
     font-weight: 500;
 }
 
-/* Stats Section */
 .dashboard-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -588,7 +566,6 @@ a:hover {
     font-weight: 600;
 }
 
-/* Dashboard Content Grid */
 .dashboard-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
@@ -1060,10 +1037,6 @@ a:hover {
     font-size: 0.85rem;
 }
 
-/* ========================================
-   MODALS
-   ======================================== */
-
 .modal {
     display: none;
     position: fixed;
@@ -1254,10 +1227,6 @@ a:hover {
     display: block;
 }
 
-/* ========================================
-   ALERTS & NOTIFICATIONS
-   ======================================== */
-
 .alert {
     padding: var(--spacing-lg);
     border-radius: var(--border-radius);
@@ -1291,10 +1260,6 @@ a:hover {
     border: 1px solid rgba(127, 179, 213, 0.3);
 }
 
-/* ========================================
-   LOADING SPINNER
-   ======================================== */
-
 .loading-spinner {
     display: none;
     position: fixed;
@@ -1326,10 +1291,6 @@ a:hover {
         transform: rotate(360deg);
     }
 }
-
-/* ========================================
-   TOAST NOTIFICATIONS
-   ======================================== */
 
 .toast-container {
     position: fixed;
@@ -1398,10 +1359,6 @@ a:hover {
     color: var(--text-primary);
 }
 
-/* ========================================
-   PROFILE CARD
-   ======================================== */
-
 .profile-card {
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
@@ -1413,10 +1370,6 @@ a:hover {
 .profile-card h3 {
     margin-bottom: var(--spacing-lg);
 }
-
-/* ========================================
-   EMPTY STATE
-   ======================================== */
 
 .empty-state {
     text-align: center;
@@ -1432,10 +1385,6 @@ a:hover {
 .empty-state h3 {
     color: var(--text-secondary);
 }
-
-/* ========================================
-   RESPONSIVE DESIGN
-   ======================================== */
 
 @media (max-width: 1024px) {
     .dashboard-content {
