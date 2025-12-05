@@ -150,6 +150,7 @@ function logout() {
     userTeams = [];
     userTasks = [];
     showAuth();
+    switchPage('login');
     showToast('Logged out successfully', 'success');
 }
 
