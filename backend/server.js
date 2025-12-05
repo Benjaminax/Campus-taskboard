@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+
+// Load environment variables before anything else
 require('dotenv').config();
 
 // Import routes
@@ -13,8 +15,9 @@ const dashboardRoutes = require('./routes/dashboard');
 const { pool } = require('./config/database');
 
 const app = express();
-// Ensure PORT is read correctly from environment
-const PORT = parseInt(process.env.PORT, 10) || 3001;
+
+// Get PORT from environment or use default
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
 
 // Security middleware
 app.use(helmet());
