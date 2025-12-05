@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Task Collaboration Board</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="auth-container" class="container">
+        <div id="login-page" class="page active">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1>Campus Task Board</h1>
+                    <p>Collaborate on Team Projects</p>
+                </div>
+                <form id="login-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Login</button>
+                    <p class="auth-switch">Don't have an account? <a href="#" onclick="switchPage('register')">Register here</a></p>
+                </form>
+                <div id="login-error" class="alert alert-error" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="register-page" class="page">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1>Join Campus Task Board</h1>
+                    <p>Create Your Account</p>
+                </div>
+                <form id="register-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <input type="text" id="register-name" name="name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" name="password" required placeholder="Minimum 6 characters">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password-confirm">Confirm Password</label>
+                        <input type="password" id="register-password-confirm" name="password-confirm" required placeholder="Re-enter your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                    <p class="auth-switch">Already have an account? <a href="#" onclick="switchPage('login')">Login here</a></p>
+                </form>
+                <div id="register-error" class="alert alert-error" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-container" class="container" style="display: none;">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>📋 Campus Task Board</h1>
+                </div>
+                <nav class="nav-menu">
+                    <button class="nav-item" onclick="navigateTo('dashboard')">Dashboard</button>
+                    <button class="nav-item" onclick="navigateTo('teams')">Teams</button>
+                    <button class="nav-item" onclick="navigateTo('tasks')">Tasks</button>
+                    <button class="nav-item" onclick="navigateTo('profile')">Profile</button>
+                </nav>
+                <div class="user-section">
+                    <span id="user-name" class="user-name"></span>
+                    <button class="btn btn-secondary" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div id="dashboard-page" class="page active">
+                <div class="dashboard-header">
+                    <div class="header-content">
+                        <div class="header-text">
+                            <h1>📊 Dashboard</h1>
+                            <p>Welcome back! Here's your project overview</p>
+                        </div>
+                        <button class="btn btn-primary" onclick="openCreateTeamModal()">+ New Team</button>
+                    </div>
+                </div>
+
+                <section class="dashboard-stats">
+                    <div class="stat-card stat-total">
+                        <div class="stat-icon-large">📋</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="total-tasks">0</div>
+                            <div class="stat-label">Total Tasks</div>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-pending">
+                        <div class="stat-icon-large">⏳</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="pending-tasks">0</div>
+                            <div class="stat-label">Pending</div>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-inprogress">
+                        <div class="stat-icon-large">🔄</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="inprogress-tasks">0</div>
+                            <div class="stat-label">In Progress</div>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-completed">
+                        <div class="stat-icon-large">✅</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="completed-tasks">0</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-overdue">
+                        <div class="stat-icon-large">⚠️</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="overdue-tasks">0</div>
+                            <div class="stat-label">Overdue</div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="dashboard-content">
+                    <section class="dashboard-section">
+                        <div class="section-header">
+                            <h2>👥 Your Teams</h2>
+                            <a href="#" onclick="navigateTo('teams'); return false;" class="view-all-link">View All →</a>
+                        </div>
+                        <div id="dashboard-teams" class="teams-grid"></div>
+                    </section>
+
+                    <section class="dashboard-section">
+                        <div class="section-header">
+                            <h2>📝 Recent Tasks</h2>
+                            <a href="#" onclick="navigateTo('tasks'); return false;" class="view-all-link">View All →</a>
+                        </div>
+                        <div id="dashboard-tasks" class="recent-tasks-list"></div>
+                    </section>
+                </div>
+            </div>
+
+            <div id="teams-page" class="page">
+                <div class="page-header">
+                    <h2>Teams</h2>
+                    <button class="btn btn-primary" onclick="openCreateTeamModal()">+ Create Team</button>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTeamTab('my-teams')">My Teams</button>
+                    <button class="tab-btn" onclick="switchTeamTab('all-teams')">Browse Teams</button>
+                </div>
+
+                <div id="my-teams-tab" class="tab-content active">
+                    <div id="my-teams-container" class="teams-grid"></div>
+                </div>
+
+                <div id="all-teams-tab" class="tab-content">
+                    <div id="all-teams-container" class="teams-grid"></div>
+                </div>
+            </div>
+
+            <div id="tasks-page" class="page">
+                <div class="page-header">
+                    <h2>Tasks</h2>
+                    <button class="btn btn-primary" onclick="openCreateTaskModal()">+ Create Task</button>
+                </div>
+
+                <div class="tasks-filters">
+                    <select id="team-filter" onchange="filterTasksByTeam()" class="filter-select">
+                        <option value="">All Teams</option>
+                    </select>
+                    <select id="status-filter" onchange="filterTasksByStatus()" class="filter-select">
+                        <option value="">All Status</option>
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+
+                <div id="tasks-container" class="tasks-list"></div>
+            </div>
+
+            <div id="profile-page" class="page">
+                <div class="page-header">
+                    <h2>User Profile</h2>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Profile Information</h3>
+                    <form id="profile-form" class="form">
+                        <div class="form-group">
+                            <label for="profile-name">Full Name</label>
+                            <input type="text" id="profile-name" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-email">Email</label>
+                            <input type="email" id="profile-email" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-joined">Member Since</label>
+                            <input type="text" id="profile-joined" readonly>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="create-team-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Team</h3>
+                <button class="modal-close" onclick="closeModal('create-team-modal')">&times;</button>
+            </div>
+            <form id="create-team-form" class="form">
+                <div class="form-group">
+                    <label for="team-name">Team Name</label>
+                    <input type="text" id="team-name" required placeholder="Enter team name">
+                </div>
+                <div class="form-group">
+                    <label for="team-description">Description</label>
+                    <textarea id="team-description" placeholder="Enter team description"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Create Team</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('create-team-modal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="edit-team-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Team</h3>
+                <button class="modal-close" onclick="closeModal('edit-team-modal')">&times;</button>
+            </div>
+            <form id="edit-team-form" class="form" onsubmit="handleEditTeam(event)">
+                <input type="hidden" id="edit-team-id">
+                <div class="form-group">
+                    <label for="edit-team-name">Team Name</label>
+                    <input type="text" id="edit-team-name" required placeholder="Enter team name">
+                </div>
+                <div class="form-group">
+                    <label for="edit-team-description">Description</label>
+                    <textarea id="edit-team-description" placeholder="Enter team description"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Update Team</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('edit-team-modal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="create-task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Task</h3>
+                <button class="modal-close" onclick="closeModal('create-task-modal')">&times;</button>
+            </div>
+            <form id="create-task-form" class="form">
+                <div class="form-group">
+                    <label for="task-team">Select Team</label>
+                    <select id="task-team" required class="form-select">
+                        <option value="">Choose a team...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="task-title">Task Title</label>
+                    <input type="text" id="task-title" required placeholder="Enter task title">
+                </div>
+                <div class="form-group">
+                    <label for="task-description">Description</label>
+                    <textarea id="task-description" placeholder="Enter task description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="task-assign">Assign To</label>
+                    <select id="task-assign" class="form-select">
+                        <option value="">Unassigned</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="task-due-date">Due Date</label>
+                    <input type="date" id="task-due-date">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Create Task</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('create-task-modal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="edit-task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Task</h3>
+                <button class="modal-close" onclick="closeModal('edit-task-modal')">&times;</button>
+            </div>
+            <form id="edit-task-form" class="form">
+                <input type="hidden" id="edit-task-id">
+                <div class="form-group">
+                    <label for="edit-task-title">Task Title</label>
+                    <input type="text" id="edit-task-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-task-description">Description</label>
+                    <textarea id="edit-task-description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-task-status">Status</label>
+                    <select id="edit-task-status" required class="form-select">
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-task-assign">Assign To</label>
+                    <select id="edit-task-assign" class="form-select">
+                        <option value="">Unassigned</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-task-due-date">Due Date</label>
+                    <input type="date" id="edit-task-due-date">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteTaskConfirm()">Delete Task</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('edit-task-modal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="team-details-modal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="team-details-name"></h3>
+                <button class="modal-close" onclick="closeModal('team-details-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="team-details-section">
+                    <h4>Team Members</h4>
+                    <div id="team-members-list" class="members-list"></div>
+                </div>
+                <div class="team-details-section">
+                    <h4>Team Tasks</h4>
+                    <div id="team-tasks-list" class="tasks-list"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('team-details-modal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading-spinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1>Campus Task Board</h1>
+                    <p>Collaborate on Team Projects</p>
+                </div>
+                <form id="login-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Login</button>
+                    <p class="auth-switch">Don't have an account? <a href="#" onclick="switchPage('register')">Register here</a></p>
+                </form>
+                <div id="login-error" class="alert alert-error" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Register Page -->
+        <div id="register-page" class="page">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1>Join Campus Task Board</h1>
+                    <p>Create Your Account</p>
+                </div>
+                <form id="register-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <input type="text" id="register-name" name="name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" name="password" required placeholder="Minimum 6 characters">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password-confirm">Confirm Password</label>
+                        <input type="password" id="register-password-confirm" name="password-confirm" required placeholder="Re-enter your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                    <p class="auth-switch">Already have an account? <a href="#" onclick="switchPage('login')">Login here</a></p>
+                </form>
+                <div id="register-error" class="alert alert-error" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="app-container" class="container" style="display: none;">
+        <!-- Header/Navigation -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>📋 Campus Task Board</h1>
+                </div>
+                <nav class="nav-menu">
+                    <button class="nav-item" onclick="navigateTo('dashboard')">Dashboard</button>
+                    <button class="nav-item" onclick="navigateTo('teams')">Teams</button>
+                    <button class="nav-item" onclick="navigateTo('tasks')">Tasks</button>
+                    <button class="nav-item" onclick="navigateTo('profile')">Profile</button>
+                </nav>
+                <div class="user-section">
+                    <span id="user-name" class="user-name"></span>
+                    <button class="btn btn-secondary" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page active">
+                <div class="dashboard-header">
+                    <div class="header-content">
+                        <div class="header-text">
+                            <h1>📊 Dashboard</h1>
+                            <p>Welcome back! Here's your project overview</p>
+                        </div>
+                        <button class="btn btn-primary" onclick="openCreateTeamModal()">+ New Team</button>
+                    </div>
+                </div>
+
+                <!-- Stats Section -->
+                <section class="dashboard-stats">
+                    <div class="stat-card stat-total">
+                        <div class="stat-icon-large">📋</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="total-tasks">0</div>
+                            <div class="stat-label">Total Tasks</div>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-pending">
+                        <div class="stat-icon-large">⏳</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="pending-tasks">0</div>
+                            <div class="stat-label">Pending</div>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-inprogress">
+                        <div class="stat-icon-large">🔄</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="inprogress-tasks">0</div>
+                            <div class="stat-label">In Progress</div>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-completed">
+                        <div class="stat-icon-large">✅</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="completed-tasks">0</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-overdue">
+                        <div class="stat-icon-large">⚠️</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="overdue-tasks">0</div>
+                            <div class="stat-label">Overdue</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Main Content Grid -->
+                <div class="dashboard-content">
+                    <!-- Teams Section -->
+                    <section class="dashboard-section">
+                        <div class="section-header">
+                            <h2>👥 Your Teams</h2>
+                            <a href="#" onclick="navigateTo('teams'); return false;" class="view-all-link">View All →</a>
+                        </div>
+                        <div id="dashboard-teams" class="teams-grid"></div>
+                    </section>
+
+                    <!-- Recent Tasks Section -->
+                    <section class="dashboard-section">
+                        <div class="section-header">
+                            <h2>📝 Recent Tasks</h2>
+                            <a href="#" onclick="navigateTo('tasks'); return false;" class="view-all-link">View All →</a>
+                        </div>
+                        <div id="dashboard-tasks" class="recent-tasks-list"></div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Teams Page -->
+            <div id="teams-page" class="page">
+                <div class="page-header">
+                    <h2>Teams</h2>
+                    <button class="btn btn-primary" onclick="openCreateTeamModal()">+ Create Team</button>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTeamTab('my-teams')">My Teams</button>
+                    <button class="tab-btn" onclick="switchTeamTab('all-teams')">Browse Teams</button>
+                </div>
+
+                <div id="my-teams-tab" class="tab-content active">
+                    <div id="my-teams-container" class="teams-grid"></div>
+                </div>
+
+                <div id="all-teams-tab" class="tab-content">
+                    <div id="all-teams-container" class="teams-grid"></div>
+                </div>
+            </div>
+
+            <!-- Tasks Page -->
+            <div id="tasks-page" class="page">
+                <div class="page-header">
+                    <h2>Tasks</h2>
+                    <button class="btn btn-primary" onclick="openCreateTaskModal()">+ Create Task</button>
+                </div>
+
+                <div class="tasks-filters">
+                    <select id="team-filter" onchange="filterTasksByTeam()" class="filter-select">
+                        <option value="">All Teams</option>
+                    </select>
+                    <select id="status-filter" onchange="filterTasksByStatus()" class="filter-select">
+                        <option value="">All Status</option>
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+
+                <div id="tasks-container" class="tasks-list"></div>
+            </div>
+
+            <!-- Profile Page -->
+            <div id="profile-page" class="page">
+                <div class="page-header">
+                    <h2>User Profile</h2>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Profile Information</h3>
+                    <form id="profile-form" class="form">
+                        <div class="form-group">
+                            <label for="profile-name">Full Name</label>
+                            <input type="text" id="profile-name" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-email">Email</label>
+                            <input type="email" id="profile-email" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-joined">Member Since</label>
+                            <input type="text" id="profile-joined" readonly>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Create Team Modal -->
+    <div id="create-team-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Team</h3>
+                <button class="modal-close" onclick="closeModal('create-team-modal')">&times;</button>
+            </div>
+            <form id="create-team-form" class="form">
+                <div class="form-group">
+                    <label for="team-name">Team Name</label>
+                    <input type="text" id="team-name" required placeholder="Enter team name">
+                </div>
+                <div class="form-group">
+                    <label for="team-description">Description</label>
+                    <textarea id="team-description" placeholder="Enter team description"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Create Team</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('create-team-modal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Team Modal -->
+    <div id="edit-team-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Team</h3>
+                <button class="modal-close" onclick="closeModal('edit-team-modal')">&times;</button>
+            </div>
+            <form id="edit-team-form" class="form" onsubmit="handleEditTeam(event)">
+                <input type="hidden" id="edit-team-id">
+                <div class="form-group">
+                    <label for="edit-team-name">Team Name</label>
+                    <input type="text" id="edit-team-name" required placeholder="Enter team name">
+                </div>
+                <div class="form-group">
+                    <label for="edit-team-description">Description</label>
+                    <textarea id="edit-team-description" placeholder="Enter team description"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Update Team</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('edit-team-modal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create Task Modal -->
+    <div id="create-task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Task</h3>
+                <button class="modal-close" onclick="closeModal('create-task-modal')">&times;</button>
+            </div>
+            <form id="create-task-form" class="form">
+                <div class="form-group">
+                    <label for="task-team">Select Team</label>
+                    <select id="task-team" required class="form-select">
+                        <option value="">Choose a team...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="task-title">Task Title</label>
+                    <input type="text" id="task-title" required placeholder="Enter task title">
+                </div>
+                <div class="form-group">
+                    <label for="task-description">Description</label>
+                    <textarea id="task-description" placeholder="Enter task description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="task-assign">Assign To</label>
+                    <select id="task-assign" class="form-select">
+                        <option value="">Unassigned</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="task-due-date">Due Date</label>
+                    <input type="date" id="task-due-date">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Create Task</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('create-task-modal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Task Modal -->
+    <div id="edit-task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Task</h3>
+                <button class="modal-close" onclick="closeModal('edit-task-modal')">&times;</button>
+            </div>
+            <form id="edit-task-form" class="form">
+                <input type="hidden" id="edit-task-id">
+                <div class="form-group">
+                    <label for="edit-task-title">Task Title</label>
+                    <input type="text" id="edit-task-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-task-description">Description</label>
+                    <textarea id="edit-task-description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-task-status">Status</label>
+                    <select id="edit-task-status" required class="form-select">
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-task-assign">Assign To</label>
+                    <select id="edit-task-assign" class="form-select">
+                        <option value="">Unassigned</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-task-due-date">Due Date</label>
+                    <input type="date" id="edit-task-due-date">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteTaskConfirm()">Delete Task</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('edit-task-modal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Team Details Modal -->
+    <div id="team-details-modal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="team-details-name"></h3>
+                <button class="modal-close" onclick="closeModal('team-details-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="team-details-section">
+                    <h4>Team Members</h4>
+                    <div id="team-members-list" class="members-list"></div>
+                </div>
+                <div class="team-details-section">
+                    <h4>Team Tasks</h4>
+                    <div id="team-tasks-list" class="tasks-list"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('team-details-modal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
