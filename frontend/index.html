@@ -6,11 +6,11 @@
     <title>Campus Task Collaboration Board</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <div id="auth-container" class="container">
+    <body style="background: linear-gradient(135deg, #1a1f2e 0%, #6366f1 100%); min-height: 100vh;">
+    <div id="auth-container" class="container" style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
         <div id="login-page" class="page active">
-            <div class="auth-card">
-                <div class="auth-header">
+            <div class="auth-card" style="box-shadow: 0 8px 32px rgba(99,102,241,0.15); border-radius: 16px; background: #1a1f2e; padding: 2rem;">
+                <div class="auth-header" style="text-align: center;">
                     <h1>Campus Task Board</h1>
                     <p>Collaborate on Team Projects</p>
                 </div>
@@ -23,16 +23,16 @@
                         <label for="login-password">Password</label>
                         <input type="password" id="login-password" name="password" required placeholder="••••••••">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-full">Login</button>
-                    <p class="auth-switch">Don't have an account? <a href="#" onclick="switchPage('register')">Register here</a></p>
+                    <button type="submit" class="btn btn-primary btn-full" style="background: linear-gradient(90deg, #6366f1, #8b5cf6); color: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(99,102,241,0.12);">Login</button>
+                    <p class="auth-switch" style="margin-top: 1rem;">Don't have an account? <a href="#" onclick="switchPage('register')" style="color: #8b5cf6;">Register here</a></p>
                 </form>
-                <div id="login-error" class="alert alert-error" style="display: none;"></div>
+                <div id="login-error" class="alert alert-error" style="display: none; color: #ef4444; margin-top: 1rem;"></div>
             </div>
         </div>
 
         <div id="register-page" class="page">
-            <div class="auth-card">
-                <div class="auth-header">
+            <div class="auth-card" style="box-shadow: 0 8px 32px rgba(99,102,241,0.15); border-radius: 16px; background: #1a1f2e; padding: 2rem;">
+                <div class="auth-header" style="text-align: center;">
                     <h1>Join Campus Task Board</h1>
                     <p>Create Your Account</p>
                 </div>
@@ -53,15 +53,15 @@
                         <label for="register-password-confirm">Confirm Password</label>
                         <input type="password" id="register-password-confirm" name="password-confirm" required placeholder="Re-enter your password">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-full">Create Account</button>
-                    <p class="auth-switch">Already have an account? <a href="#" onclick="switchPage('login')">Login here</a></p>
+                    <button type="submit" class="btn btn-primary btn-full" style="background: linear-gradient(90deg, #6366f1, #8b5cf6); color: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(99,102,241,0.12);">Create Account</button>
+                    <p class="auth-switch" style="margin-top: 1rem;">Already have an account? <a href="#" onclick="switchPage('login')" style="color: #8b5cf6;">Login here</a></p>
                 </form>
-                <div id="register-error" class="alert alert-error" style="display: none;"></div>
+                <div id="register-error" class="alert alert-error" style="display: none; color: #ef4444; margin-top: 1rem;"></div>
             </div>
         </div>
     </div>
 
-    <div id="app-container" class="container" style="display: none;">
+    <div id="app-container" class="container" style="display: none; background: rgba(31,41,55,0.95); border-radius: 16px; box-shadow: 0 8px 32px rgba(99,102,241,0.10); margin: 2rem auto; max-width: 1400px;">
         <header class="header">
             <div class="header-content">
                 <div class="logo">

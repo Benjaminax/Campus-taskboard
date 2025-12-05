@@ -1,45 +1,25 @@
-/* ========================================
-   CAMPUS TASK BOARD - DARK THEME CSS
-   ======================================== */
-
-/* Root CSS Variables */
 :root {
-    /* Dark Theme Colors */
     --bg-primary: #0f1419;
     --bg-secondary: #1a1f2e;
     --bg-tertiary: #252d3d;
     --bg-hover: #2a3348;
-    
-    /* Text Colors */
     --text-primary: #e8ebed;
     --text-secondary: #a8aeb8;
     --text-muted: #6b7280;
-    
-    /* Accent Colors */
     --accent-primary: #6366f1;
     --accent-secondary: #8b5cf6;
     --accent-tertiary: #ec4899;
-    
-    /* Status Colors */
     --success: #10b981;
     --warning: #f59e0b;
     --error: #ef4444;
     --info: #3b82f6;
-    
-    /* Borders */
     --border-color: #374151;
     --border-radius: 8px;
-    
-    /* Shadows */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
-    
-    /* Transitions */
     --transition: all 0.3s ease;
-    
-    /* Spacing */
     --spacing-xs: 0.25rem;
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
@@ -48,9 +28,6 @@
     --spacing-2xl: 3rem;
 }
 
-/* ========================================
-   GLOBAL STYLES
-   ======================================== */
 
 * {
     margin: 0;
@@ -70,9 +47,6 @@ body {
     font-size: 14px;
 }
 
-/* ========================================
-   TYPOGRAPHY
-   ======================================== */
 
 h1 {
     font-size: 2rem;
@@ -118,9 +92,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* ========================================
-   CONTAINERS & LAYOUT
-   ======================================== */
 
 .container {
     width: 100%;
@@ -167,9 +138,6 @@ a:hover {
     margin-bottom: 0;
 }
 
-/* ========================================
-   HEADER & NAVIGATION
-   ======================================== */
 
 .header {
     background-color: var(--bg-secondary);

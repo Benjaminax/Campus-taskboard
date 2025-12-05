@@ -137,10 +137,10 @@ function logout() {
     showAuth();
     showToast('Logged out successfully', 'success');
 }
-
 // ========================================
 // UI NAVIGATION
 // ========================================
+
 
 function showAuth() {
     document.getElementById('auth-container').style.display = 'flex';
@@ -151,12 +151,13 @@ function showApp() {
     document.getElementById('auth-container').style.display = 'none';
     document.getElementById('app-container').style.display = 'block';
     document.getElementById('user-name').textContent = currentUser.name;
-    
-    if (currentPage !== 'dashboard' && currentPage !== 'teams' && currentPage !== 'tasks' && currentPage !== 'profile') {
-        navigateTo('dashboard');
-    } else {
-        updateActiveNavItem();
-    }
+    // Hide all auth pages (login/register) when showing app
+    document.querySelectorAll('#auth-container .page').forEach(page => {
+        page.classList.remove('active');
+    });
+    // Always show dashboard after login
+    currentPage = 'dashboard';
+    navigateTo('dashboard');
 }
 
 function switchPage(pageName) {
@@ -203,10 +204,10 @@ function updateActiveNavItem() {
         navItems[pageMap[currentPage]]?.classList.add('active');
     }
 }
-
 // ========================================
 // DASHBOARD
 // ========================================
+
 
 async function loadDashboard() {
     try {
@@ -642,8 +643,8 @@ async function viewTeamDetails(teamId) {
         if (data.success) {
             const team = data.team;
             document.getElementById('team-details-name').textContent = escapeHtml(team.name);
-
             // Render members
+
             const membersList = document.getElementById('team-members-list');
             membersList.innerHTML = (team.members || []).map(member => `
                 <div class="member-item">
@@ -655,8 +656,8 @@ async function viewTeamDetails(teamId) {
                     <span class="member-role">${escapeHtml(member.role)}</span>
                 </div>
             `).join('');
-
             // Render tasks
+
             const tasksList = document.getElementById('team-tasks-list');
             tasksList.innerHTML = (team.tasks || []).map(task => `
                 <div class="task-card" onclick="editTask(${task.id})">
@@ -691,10 +692,10 @@ function switchTeamTab(tab) {
     event.target.classList.add('active');
     document.getElementById(`${tab}-tab`).classList.add('active');
 }
-
 // ========================================
 // TASKS MANAGEMENT
 // ========================================
+
 
 async function loadTasks() {
     try {
