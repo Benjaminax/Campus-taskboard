@@ -48,6 +48,9 @@ app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Serve static files from the root directory
+app.use(express.static(require('path').join(__dirname, '..')));
+
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/teams', teamRoutes);
